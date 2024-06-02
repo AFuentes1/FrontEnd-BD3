@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("IMG_7308 .jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+}
+
+
+
+.wrapper{
+    background: rgba(98, 162, 185, 0.6); /* Color oscuro con opacidad del 50% */    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
