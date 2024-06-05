@@ -55,6 +55,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+function consultarFacutura(id) {
+    console.log(id);
+    if (id > 0) {
+        var formData = {
+            id: id
+        };
+    
+        console.log(id)
+        // Enviar solicitud al API
+        fetch(`http://localhost:7081/Facturas/Detalle?id=${formData.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json' // Incluye la userKey en el encabezado de autorización si es necesario
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Devuelve los datos JSON de la respuesta
+            } else {
+                throw new Error('La respuesta del servidor no es válida');
+            }
+        }) 
+        .then(data => {
+            // Llamar a la función para mostrar la tabla con los datos recibidos de la API
+            console.log("data",data.status);
+            if (data.status == 0) {
+                mostrarTabla(data);
+                console.log(data);
+            } else {
+                alert("No se encontraron Facturas");
+            }
+        })
+        .catch(error => {
+            // Para manejar los errores
+            console.error('Error:', error);
+        });
+    } else {
+        alert('Error en la consulta');
+    }
+}
 
 function mostrarTabla(data) {
     // Obtener el contenedor donde se mostrará la tabla
@@ -97,11 +137,12 @@ function mostrarTabla(data) {
         const button = document.createElement('button');
         button.textContent = 'Consultar';
 
+
+
         // Puedes agregar un event listener al botón aquí si es necesario
         button.addEventListener('click', () => {
             // Acción al hacer clic en el botón
-            console.log('Consultando:', item);
-
+            consultarFacutura(item.id)
             
         });
         
