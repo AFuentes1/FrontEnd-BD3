@@ -174,59 +174,52 @@ function mostrarTabla(data) {
     dataContainer.appendChild(table);
 }
 
-
-function mostrarTablaConsultar(data) {
-    // Obtener el contenedor donde se mostrará la tabla
+function mostrarTablaConsultar(data){
+    // Obtener el contenedor donde se mostrará la factura
     const dataContainer = document.getElementById('dataContainer');
     
-    // Crear la tabla
-    const table = document.createElement('table');
-    table.classList.add('tabla');
+    // Crear el contenedor de la factura
+    const facturaContainer = document.createElement('div');
+    facturaContainer.classList.add('factura');
 
-    // Crear el encabezado de la tabla excluyendo la primera y la cuarta columna
-    const headerRow = document.createElement('tr');
+    // Crear el encabezado de la factura
+    const encabezado = document.createElement('div');
+    encabezado.classList.add('encabezado-factura');
+    encabezado.innerHTML = `
+        <h2>Factura</h2>
+        <p>Fecha: ${new Date().toLocaleDateString()}</p>
+    `;
+    facturaContainer.appendChild(encabezado);
+
+    // Crear la sección de información de la factura excluyendo la primera y la cuarta columna
+    const infoFactura = document.createElement('div');
+    infoFactura.classList.add('info-factura');
     const keys = Object.keys(data);
+    const values = Object.values(data);
     for (let i = 0; i < keys.length; i++) {
         if (i !== 0 && i !== 3) { // Excluir la primera columna (i=0) y la cuarta columna (i=3)
-            const th = document.createElement('th');
-            th.textContent = keys[i];
-            headerRow.appendChild(th);
+            const infoRow = document.createElement('p');
+            infoRow.innerHTML = `<strong>${keys[i]}:</strong> ${values[i]}`;
+            infoFactura.appendChild(infoRow);
         }
     }
-    // Agregar un encabezado para la columna de botones
-    const thButton = document.createElement('th');
-    thButton.textContent = 'Acciones';
-    headerRow.appendChild(thButton);
+    facturaContainer.appendChild(infoFactura);
 
-    table.appendChild(headerRow);
-
-    // Crear la fila de la tabla con los datos excluyendo la primera y la cuarta columna
-    const row = document.createElement('tr');
-    const values = Object.values(data);
-    for (let i = 0; i < values.length; i++) {
-        if (i !== 0 && i !== 3) { // Excluir la primera columna (i=0) y la cuarta columna (i=3)
-            const cell = document.createElement('td');
-            cell.textContent = values[i];
-            row.appendChild(cell);
-        }
-    }
-    
-    // Crear la celda para los botones
-    const cellButton = document.createElement('td');
+    // Crear la sección de acciones
+    const acciones = document.createElement('div');
+    acciones.classList.add('acciones-factura');
     const button = document.createElement('button');
     button.textContent = 'Regresar';
     button.addEventListener('click', () => {
         // Acción al hacer clic en el botón
-        consultarFactura()
+        consultarFactura();
     });
-    cellButton.appendChild(button);
-    row.appendChild(cellButton);
-
-    table.appendChild(row);
+    acciones.appendChild(button);
+    facturaContainer.appendChild(acciones);
 
     // Limpiar el contenido previo del contenedor
     dataContainer.innerHTML = '';
 
-    // Agregar la tabla al contenedor
-    dataContainer.appendChild(table);
+    // Agregar la factura al contenedor
+    dataContainer.appendChild(facturaContainer);
 }
