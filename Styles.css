@@ -44,6 +44,30 @@ body{
     background-color: #2f6e6b;
 }
 
+/* Estilos para el nuevo botón */
+.customButton {
+    background-color: rgba(98, 162, 185, 0.80); /* Color de fondo */
+    border: none; /* Sin borde */
+    color: white; /* Color del texto */
+    padding: 15px 32px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como bloque en línea */
+    font-size: 16px; /* Tamaño del texto */
+    margin: 20px; /* Margen exterior */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+}
+
+/* Definición de una variable para reubicar el botón */
+:root {
+    --custom-button-position: absolute;
+}
+
+/* Clase para reubicar el botón usando la variable */
+.relocateButton {
+    position: var(--custom-button-position);
+}
+
 
 
 

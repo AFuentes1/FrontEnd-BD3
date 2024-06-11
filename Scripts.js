@@ -95,7 +95,7 @@ function consultarFacutura(id) {
             // Llamar a la función para mostrar la tabla con los datos recibidos de la API
             console.log("data",data.status);
             if (data.status == 0) {
-                console.log(data);
+                console.log("data", data);
                 mostrarTablaConsultar(data);
                 
             } else {
@@ -174,10 +174,10 @@ function mostrarTabla(data) {
     dataContainer.appendChild(table);
 }
 
-function mostrarTablaConsultar(data){
+function mostrarTablaConsultar(data) {
     // Obtener el contenedor donde se mostrará la factura
     const dataContainer = document.getElementById('dataContainer');
-    
+
     // Crear el contenedor de la factura
     const facturaContainer = document.createElement('div');
     facturaContainer.classList.add('factura');
@@ -187,19 +187,17 @@ function mostrarTablaConsultar(data){
     encabezado.classList.add('encabezado-factura');
     encabezado.innerHTML = `
         <h2>Factura</h2>
-        <p>Fecha: ${new Date().toLocaleDateString()}</p>
+        <p>Fecha: ${new Date(data.Fecha).toLocaleDateString()}</p>
     `;
     facturaContainer.appendChild(encabezado);
 
-    // Crear la sección de información de la factura excluyendo la primera y la cuarta columna
+    // Crear la sección de información de la factura
     const infoFactura = document.createElement('div');
     infoFactura.classList.add('info-factura');
-    const keys = Object.keys(data);
-    const values = Object.values(data);
-    for (let i = 0; i < keys.length; i++) {
-        if (i !== 0 && i !== 3) { // Excluir la primera columna (i=0) y la cuarta columna (i=3)
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
             const infoRow = document.createElement('p');
-            infoRow.innerHTML = `<strong>${keys[i]}:</strong> ${values[i]}`;
+            infoRow.innerHTML = `<strong>${key}:</strong> ${data[key]}`;
             infoFactura.appendChild(infoRow);
         }
     }
@@ -223,3 +221,11 @@ function mostrarTablaConsultar(data){
     // Agregar la factura al contenedor
     dataContainer.appendChild(facturaContainer);
 }
+
+
+
+// Añadir evento de clic al botón para redirigir a otro archivo HTML
+document.getElementById('EstadoCuentaXY').addEventListener('click', function() {
+    window.location.href = '../EstadoCuentaXY/CuentaXY.html';
+    console.log("click")
+});
