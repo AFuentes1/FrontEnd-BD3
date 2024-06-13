@@ -78,13 +78,17 @@ function consultarFacutura(id) {
     
         console.log(id)
         // Enviar solicitud al API
+        
         fetch(`http://localhost:7081/Facturas/Detalle?id=${formData.id}`, {
+            
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json' // Incluye la userKey en el encabezado de autorización si es necesario
             },
         })
+        
         .then(response => {
+            
             if (response.ok) {
                 return response.json(); // Devuelve los datos JSON de la respuesta
             } else {
@@ -93,7 +97,7 @@ function consultarFacutura(id) {
         }) 
         .then(data => {
             // Llamar a la función para mostrar la tabla con los datos recibidos de la API
-            console.log("data",data.status);
+            console.log("data1",data);
             if (data.status == 0) {
                 console.log("data", data);
                 mostrarTablaConsultar(data);
@@ -195,7 +199,7 @@ function mostrarTablaConsultar(data) {
     const infoFactura = document.createElement('div');
     infoFactura.classList.add('info-factura');
     for (const key in data) {
-        if (data.hasOwnProperty(key)) {
+        if (data.hasOwnProperty(key) && key !== 'id' && key !== 'status') {
             const infoRow = document.createElement('p');
             infoRow.innerHTML = `<strong>${key}:</strong> ${data[key]}`;
             infoFactura.appendChild(infoRow);
@@ -221,6 +225,7 @@ function mostrarTablaConsultar(data) {
     // Agregar la factura al contenedor
     dataContainer.appendChild(facturaContainer);
 }
+
 
 
 
