@@ -7,6 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
    
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    regresarButton.addEventListener('click', function() {
+        const wrapperFiltro2 = document.getElementById('wrapperFiltro2');
+        const wrapperFiltro = document.getElementById('wrapperFiltro');
+        wrapperFiltro2.style.display = 'none';
+        wrapperFiltro.style.display = 'block';
+        consultarFactura()
+        
+    });
+});
+
 
 function consultarFactura() {
     // Asignar evento de clic al botón de consulta
@@ -74,7 +85,10 @@ function consultarFacutura(id) {
         var formData = {
             id: id
         };
-    
+        
+        const wrapperFiltro2 = document.getElementById('wrapperFiltro2');
+        const wrapperFiltro = document.getElementById('wrapperFiltro');
+
         // Enviar solicitud al API
         fetch(`http://localhost:7081/Facturas/Detalle?id=${formData.id}`, {
             
@@ -100,6 +114,8 @@ function consultarFacutura(id) {
                 console.log("llamadas", data.Factura.Llamadas);
                 console.log("gigas", data.Factura.Gigas);
 
+                wrapperFiltro2.style.display = 'block';
+                wrapperFiltro.style.display = 'none';
                 mostrarTablaElementos(data.Factura.Elementos)
                 mostrarTablaLlamadas(data.Factura.Llamadas)
                 mostrarTablaGigas(data.Factura.Gigas)
