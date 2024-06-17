@@ -9,22 +9,75 @@
 </head>
 <body>
 
-    <div class="wrapper" id="wrapperFiltro" >
+    <div class="wrapper" id="wrapperFiltro">
+        
         <!-- Añadido: Lista desplegable, campo de texto y botón de consulta -->
         <input type="text" id="consultaInput">
         <button id="buscarButton">Buscar</button>
+
+        <!-- Añadido: Botón de regresar -->
+        <button id="regresarButton">Regresar</button>
         
+        <h2>Facturas</h2>
         <div class="wrapper" id="dataContainer"> 
             <!-- Tu contenido existente -->
-            <form id="registroForm" action="//Aqui va el archivo donde se guarde la info"> 
-                <h1>Facturas</h1>
+            <form id="registroForm1" action="//Aqui va el archivo donde se guarde la info"> 
+                <div class="registerLink">
+                    <!-- Aquí se pueden agregar otros elementos si es necesario -->
+                </div>
+            </form>
+        </div>
+    
+    </div>
+
+
+
+
+    <div class="wrapper" id="wrapperFiltro2" style="display: none;" >
+
+        <!-- Añadido: Botón de regresar -->
+        <button id="regresarButton">Regresar</button>
+        
+        <h2>Elementos de las Facturas</h2>
+        <div class="wrapper" id="dataContainer4"> 
+            <!-- Tu contenido existente -->
+            <form id="registroForm1" action="//Aqui va el archivo donde se guarde la info"> 
+                <div class="registerLink">
+                    <!-- Aquí se pueden agregar otros elementos si es necesario -->
+                </div>
+            </form>
+        </div>
+
+        <h2>Detalles de las llamadas</h2>
+        <div class="wrapper" id="dataContainer2"> 
+            <!-- Tu contenido existente -->
+            <form id="registroForm2" action="//Aqui va el archivo donde se guarde la info"> 
                 <div class="registerLink">
                     <!-- Aquí se pueden agregar otros elementos si es necesario -->
                 </div>
             </form>
             <!-- Aquí se mostrará la tabla dinámica -->
         </div>
+        
+
+        <h2>Detalle uso de datos</h2>
+        <div class="wrapper" id="dataContainer3"> 
+            <!-- Tu contenido existente -->
+            <form id="registroForm3" action="//Aqui va el archivo donde se guarde la info"> 
+                <div class="registerLink">
+                    <!-- Aquí se pueden agregar otros elementos si es necesario -->
+                </div>
+            </form>
+            <!-- Aquí se mostrará la tabla dinámica -->
+        </div>
+        
     </div>
+        
+    </div>
+
+        
+    
+
 
     <button class="customButton" id="EstadoCuentaX">Estado de Cuenta X</button>
     <button class="customButton" id="EstadoCuentaY">Estado de Cuenta Y</button>

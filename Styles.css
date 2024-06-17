@@ -69,5 +69,33 @@ body{
 }
 
 
+.tabla-gigas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #fff;  /* Texto blanco para mejor contraste */
+}
 
+.tabla-gigas th, .tabla-gigas td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabla-gigas th {
+    background-color: rgba(98, 162, 185, 0.80);  /* Fondo oscuro para el encabezado */
+    color: #fff;  /* Texto blanco para el encabezado */
+}
+
+.tabla-gigas tr:nth-child(even) {
+    background-color: rgba(98, 162, 185, 0.80);  /* Fondo gris oscuro para filas pares */
+}
+
+.tabla-gigas tr:nth-child(odd) {
+    background-color: rgba(98, 162, 185, 0.80)  /* Fondo gris medio para filas impares */
+}
+
+.tabla-gigas tr:hover {
+    background-color: #777;  /* Fondo gris claro al pasar el cursor */
+}
 

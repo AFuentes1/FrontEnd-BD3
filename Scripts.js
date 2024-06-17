@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
     buscarButton.addEventListener('click', function() {
         consultarFactura()
     });
@@ -60,9 +61,10 @@ function consultarFactura() {
                 console.error('Error:', error);
             });
 
-        } else {
+        } /*else {
             alert('Por favor ingrese un número de consulta');
-        }
+        }*/
+            
     }
     
 }
@@ -95,7 +97,12 @@ function consultarFacutura(id) {
             // Llamar a la función para mostrar la tabla con los datos recibidos de la API
             if (data.status == 0) {
                 console.log("elementos", data.Factura.Elementos);
+                console.log("llamadas", data.Factura.Llamadas);
+                console.log("gigas", data.Factura.Gigas);
+
                 mostrarTablaElementos(data.Factura.Elementos)
+                mostrarTablaLlamadas(data.Factura.Llamadas)
+                mostrarTablaGigas(data.Factura.Gigas)
                 
             } else {
                 alert("No se encontraron Facturas");
@@ -177,7 +184,7 @@ function mostrarTabla(data) {
 //Mostrar tabla de consulta de factura
 function mostrarTablaElementos(elementos) {
     // Obtener el contenedor donde se mostrará la tabla de elementos
-    const elementosContainer = document.getElementById('dataContainer');
+    const elementosContainer = document.getElementById('dataContainer4');
 
     // Crear la tabla
     const table = document.createElement('table');
@@ -206,6 +213,105 @@ function mostrarTablaElementos(elementos) {
         columns.forEach(columnName => {
             const cell = document.createElement('td');
             cell.textContent = elemento[columnName]; // Obtener el valor del objeto según el nombre de la columna
+            row.appendChild(cell);
+        });
+
+        // Agregar la fila a la tabla
+        table.appendChild(row);
+    });
+ 
+ 
+    // Limpiar el contenido previo del contenedor de elementos
+    elementosContainer.innerHTML = '';
+
+    // Agregar la tabla al contenedor de elementos
+    elementosContainer.appendChild(table);
+}
+
+// scripts.js
+function mostrarTablaLlamadas(llamadas) {
+    // Obtener el contenedor donde se mostrará la tabla de elementos
+    const elementosContainer = document.getElementById('dataContainer2');
+
+    // Crear la tabla
+    const table = document.createElement('table');
+    table.classList.add('tabla');
+
+    // Crear el encabezado de la tabla
+    const headerRow = document.createElement('tr');
+
+    // Crear las columnas del encabezado
+    const headers = ['Nombre', 'Valor', 'Monto']; // Columnas que quieres mostrar
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+
+    // Agregar el encabezado a la tabla
+    table.appendChild(headerRow);
+
+    // Crear las filas de la tabla con los datos de elementos
+    llamadas.forEach(elemento => {
+        const row = document.createElement('tr');
+
+        // Agregar las celdas con los datos de cada elemento
+        const columns = ['Nombre', 'Valor', 'Monto']; // Columnas que coinciden con el encabezado
+        columns.forEach(columnName => {
+            const cell = document.createElement('td');
+            cell.textContent = elemento[columnName]; // Obtener el valor del objeto según el nombre de la columna
+            row.appendChild(cell);
+        });
+
+        // Agregar la fila a la tabla
+        table.appendChild(row);
+    });
+
+    // Limpiar el contenido previo del contenedor de elementos
+    elementosContainer.innerHTML = '';
+
+    // Agregar la tabla al contenedor de elementos
+    elementosContainer.appendChild(table);
+}
+
+function mostrarTablaGigas(Gigas) {
+    // Obtener el contenedor donde se mostrará la tabla de elementos
+    const elementosContainer = document.getElementById('dataContainer3');
+
+    // Crear la tabla
+    const table = document.createElement('table');
+    table.classList.add('tabla');
+
+    // Crear el encabezado de la tabla
+    const headerRow = document.createElement('tr');
+
+    // Crear las columnas del encabezado
+    const headers = ['Fecha', 'Cantidad']; // Columnas que quieres mostrar
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        th.classList.add('header-cell'); // Añadir clase CSS a las celdas del encabezado
+        headerRow.appendChild(th);
+    });
+
+    // Agregar el encabezado a la tabla
+    table.appendChild(headerRow);
+
+    // Crear las filas de la tabla con los datos de elementos
+    Gigas.forEach(elemento => {
+        const row = document.createElement('tr');
+
+        // Agregar las celdas con los datos de cada elemento
+        const columns = ['Fecha', 'Cantidad']; // Columnas que coinciden con el encabezado
+        columns.forEach(columnName => {
+            const cell = document.createElement('td');
+            let cellText = elemento[columnName];
+            // Si la columna es 'Fecha', eliminar 'T00:00:00'
+            if (columnName === 'Fecha') {
+                cellText = cellText.split('T')[0];
+            }
+            cell.textContent = cellText; // Obtener el valor del objeto según el nombre de la columna
+            cell.classList.add('data-cell'); // Añadir clase CSS a las celdas de datos
             row.appendChild(cell);
         });
 
