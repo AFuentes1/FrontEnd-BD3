@@ -13,7 +13,6 @@ function consultarFactura() {
     // Obtener el valor del campo de texto y del filtro seleccionado
     var consultaInput = document.getElementById('consultaInput');
     var buscarButton = document.getElementById('buscarButton');
-    console.log(consultaInput.value);
     var consulta = consultaInput.value;
     //console.log(consulta);
 
@@ -46,7 +45,6 @@ function consultarFactura() {
                 
                 try {
                     if (data.status == 0) {
-                        console.log(data);
                         mostrarTabla(data);
                         
                     } else {
@@ -70,15 +68,12 @@ function consultarFactura() {
 }
 
 function consultarFacutura(id) {
-    console.log(id);
     if (id > 0) {
         var formData = {
             id: id
         };
     
-        console.log(id)
         // Enviar solicitud al API
-        
         fetch(`http://localhost:7081/Facturas/Detalle?id=${formData.id}`, {
             
             method: 'GET',
@@ -95,12 +90,12 @@ function consultarFacutura(id) {
                 throw new Error('La respuesta del servidor no es válida');
             }
         }) 
+        
         .then(data => {
             // Llamar a la función para mostrar la tabla con los datos recibidos de la API
-            console.log("data1",data);
             if (data.status == 0) {
-                console.log("data", data);
-                mostrarTablaConsultar(data);
+                console.log("elementos", data.Factura.Elementos);
+                mostrarTablaElementos(data.Factura.Elementos)
                 
             } else {
                 alert("No se encontraron Facturas");
@@ -162,7 +157,7 @@ function mostrarTabla(data) {
         button.addEventListener('click', () => {
             // Acción al hacer clic en el botón
             consultarFacutura(item.id)
-            
+            console.log(item.id)
         });
         
         cellButton.appendChild(button);
@@ -178,59 +173,56 @@ function mostrarTabla(data) {
     dataContainer.appendChild(table);
 }
 
-function mostrarTablaConsultar(data) {
-    // Obtener el contenedor donde se mostrará la factura
-    const dataContainer = document.getElementById('dataContainer');
 
-    // Crear el contenedor de la factura
-    const facturaContainer = document.createElement('div');
-    facturaContainer.classList.add('factura');
+//Mostrar tabla de consulta de factura
+function mostrarTablaElementos(elementos) {
+    // Obtener el contenedor donde se mostrará la tabla de elementos
+    const elementosContainer = document.getElementById('dataContainer');
 
-    // Crear el encabezado de la factura
-    const encabezado = document.createElement('div');
-    encabezado.classList.add('encabezado-factura');
-    encabezado.innerHTML = `
-        <h2>Factura</h2>
-        <p>Fecha: ${new Date(data.Fecha).toLocaleDateString()}</p>
-    `;
-    facturaContainer.appendChild(encabezado);
+    // Crear la tabla
+    const table = document.createElement('table');
+    table.classList.add('tabla');
 
-    // Crear la sección de información de la factura
-    const infoFactura = document.createElement('div');
-    infoFactura.classList.add('info-factura');
-    for (const key in data) {
-        if (data.hasOwnProperty(key) && key !== 'id' && key !== 'status') {
-            const infoRow = document.createElement('p');
-            infoRow.innerHTML = `<strong>${key}:</strong> ${data[key]}`;
-            infoFactura.appendChild(infoRow);
-        }
-    }
-    facturaContainer.appendChild(infoFactura);
+    // Crear el encabezado de la tabla
+    const headerRow = document.createElement('tr');
 
-    // Crear la sección de acciones
-    const acciones = document.createElement('div');
-    acciones.classList.add('acciones-factura');
-    const button = document.createElement('button');
-    button.textContent = 'Regresar';
-    button.addEventListener('click', () => {
-        // Acción al hacer clic en el botón
-        consultarFactura();
+    // Crear las columnas del encabezado
+    const headers = ['Nombre', 'Valor', 'Monto']; // Columnas que quieres mostrar
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
     });
-    acciones.appendChild(button);
-    facturaContainer.appendChild(acciones);
 
-    // Limpiar el contenido previo del contenedor
-    dataContainer.innerHTML = '';
+    // Agregar el encabezado a la tabla
+    table.appendChild(headerRow);
 
-    // Agregar la factura al contenedor
-    dataContainer.appendChild(facturaContainer);
+    // Crear las filas de la tabla con los datos de elementos
+    elementos.forEach(elemento => {
+        const row = document.createElement('tr');
+
+        // Agregar las celdas con los datos de cada elemento
+        const columns = ['Nombre', 'Valor', 'Monto']; // Columnas que coinciden con el encabezado
+        columns.forEach(columnName => {
+            const cell = document.createElement('td');
+            cell.textContent = elemento[columnName]; // Obtener el valor del objeto según el nombre de la columna
+            row.appendChild(cell);
+        });
+
+        // Agregar la fila a la tabla
+        table.appendChild(row);
+    });
+
+    // Limpiar el contenido previo del contenedor de elementos
+    elementosContainer.innerHTML = '';
+
+    // Agregar la tabla al contenedor de elementos
+    elementosContainer.appendChild(table);
 }
 
 
-
-
-// Añadir evento de clic al botón para redirigir a otro archivo HTML
+/* Añadir evento de clic al botón para redirigir a otro archivo HTML
 document.getElementById('EstadoCuentaXY').addEventListener('click', function() {
     window.location.href = '../EstadoCuentaXY/CuentaXY.html';
     console.log("click")
-});
+});*/
