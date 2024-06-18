@@ -7,12 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
    
 });
 
+//Acción de boton regresar
 document.addEventListener('DOMContentLoaded', function() {
     regresarButton.addEventListener('click', function() {
         const wrapperFiltro2 = document.getElementById('wrapperFiltro2');
         const wrapperFiltro = document.getElementById('wrapperFiltro');
+
+        const botonx = document.getElementById('EstadoCuentaX');
+        const botony = document.getElementById('EstadoCuentaY');
+
         wrapperFiltro2.style.display = 'none';
         wrapperFiltro.style.display = 'block';
+
+        botonx.style.display = 'block';
+        botony.style.display = 'block';
+
+        
         consultarFactura()
         
     });
@@ -72,15 +82,15 @@ function consultarFactura() {
                 console.error('Error:', error);
             });
 
-        } /*else {
+        } else {
             alert('Por favor ingrese un número de consulta');
-        }*/
-            
+        }
+        
     }
     
 }
 
-function consultarFacutura(id) {
+function consultarFactura(id) {
     if (id > 0) {
         var formData = {
             id: id
@@ -88,6 +98,9 @@ function consultarFacutura(id) {
         
         const wrapperFiltro2 = document.getElementById('wrapperFiltro2');
         const wrapperFiltro = document.getElementById('wrapperFiltro');
+
+        const botonx = document.getElementById('EstadoCuentaX');
+        const botony = document.getElementById('EstadoCuentaY');
 
         // Enviar solicitud al API
         fetch(`http://localhost:7081/Facturas/Detalle?id=${formData.id}`, {
@@ -114,6 +127,9 @@ function consultarFacutura(id) {
                 console.log("llamadas", data.Factura.Llamadas);
                 console.log("gigas", data.Factura.Gigas);
 
+                botonx.style.display = 'none';
+                botony.style.display = 'none';
+
                 wrapperFiltro2.style.display = 'block';
                 wrapperFiltro.style.display = 'none';
                 mostrarTablaElementos(data.Factura.Elementos)
@@ -126,7 +142,7 @@ function consultarFacutura(id) {
         })
         .catch(error => {
             // Para manejar los errores
-            console.error('Error:', error);
+            //console.error('Error:', error);
         });
     } else {
         alert('Error en la consulta');
@@ -135,6 +151,7 @@ function consultarFacutura(id) {
 
 function mostrarTabla(data) {
     // Obtener el contenedor donde se mostrará la tabla
+    console.log(data)
     const dataContainer = document.getElementById('dataContainer');
     
     // Crear la tabla
@@ -179,7 +196,7 @@ function mostrarTabla(data) {
         // Puedes agregar un event listener al botón aquí si es necesario
         button.addEventListener('click', () => {
             // Acción al hacer clic en el botón
-            consultarFacutura(item.id)
+            consultarFactura(item.id)
             console.log(item.id)
         });
         
@@ -257,7 +274,7 @@ function mostrarTablaLlamadas(llamadas) {
     const headerRow = document.createElement('tr');
 
     // Crear las columnas del encabezado
-    const headers = ['Nombre', 'Valor', 'Monto']; // Columnas que quieres mostrar
+    const headers = ['Saliente', 'Entrante', 'Fin', 'Inicio', 'Minutos', 'Saliente']; // Columnas que quieres mostrar
     headers.forEach(headerText => {
         const th = document.createElement('th');
         th.textContent = headerText;
@@ -272,10 +289,10 @@ function mostrarTablaLlamadas(llamadas) {
         const row = document.createElement('tr');
 
         // Agregar las celdas con los datos de cada elemento
-        const columns = ['Nombre', 'Valor', 'Monto']; // Columnas que coinciden con el encabezado
+        const columns = ['Saliente', 'Entrante', 'Fin', 'Inicio', 'Minutos', 'Saliente']; 
         columns.forEach(columnName => {
             const cell = document.createElement('td');
-            cell.textContent = elemento[columnName]; // Obtener el valor del objeto según el nombre de la columna
+            cell.textContent = elemento[columnName]; 
             row.appendChild(cell);
         });
 
@@ -343,8 +360,8 @@ function mostrarTablaGigas(Gigas) {
 }
 
 
-/* Añadir evento de clic al botón para redirigir a otro archivo HTML
-document.getElementById('EstadoCuentaXY').addEventListener('click', function() {
-    window.location.href = '../EstadoCuentaXY/CuentaXY.html';
+
+document.getElementById('EstadoCuentaX').addEventListener('click', function() {
+    window.location.href = '../EstadoCuentaX/CuentaX.html';
     console.log("click")
-});*/
+});
