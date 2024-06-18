@@ -363,5 +363,8 @@ function mostrarTablaGigas(Gigas) {
 
 document.getElementById('EstadoCuentaX').addEventListener('click', function() {
     window.location.href = '../EstadoCuentaX/CuentaX.html';
-    console.log("click")
+});
+
+document.getElementById('EstadoCuentaY').addEventListener('click', function() {
+    window.location.href = '../EstadoCuentaY/CuentaY.html';
 });
