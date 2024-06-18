@@ -44,7 +44,7 @@ function consultarFactura() {
             var formData = {
                 Numero: consulta
             };
-            
+            console.log(formData);
             // Enviar solicitud al API
             fetch(`http://localhost:7081/Facturas?numero=${formData.Numero}`, {
                 
@@ -90,7 +90,8 @@ function consultarFactura() {
     
 }
 
-function consultarFactura(id) {
+function consultarFacturaDetalle(id) {
+    console.log(id);
     if (id > 0) {
         var formData = {
             id: id
@@ -101,7 +102,7 @@ function consultarFactura(id) {
 
         const botonx = document.getElementById('EstadoCuentaX');
         const botony = document.getElementById('EstadoCuentaY');
-
+        
         // Enviar solicitud al API
         fetch(`http://localhost:7081/Facturas/Detalle?id=${formData.id}`, {
             
@@ -196,8 +197,7 @@ function mostrarTabla(data) {
         // Puedes agregar un event listener al botón aquí si es necesario
         button.addEventListener('click', () => {
             // Acción al hacer clic en el botón
-            consultarFactura(item.id)
-            console.log(item.id)
+            consultarFacturaDetalle(item.id)
         });
         
         cellButton.appendChild(button);
